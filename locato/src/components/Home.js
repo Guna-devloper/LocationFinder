@@ -35,7 +35,7 @@ const Home = () => {
             <option value="restaurant">Restaurant 🍽️</option>
             <option value="hotel">Hotel 🏨</option>
             <option value="gym">Gym 🏋️</option>
-            <option value="movie_theater">Theater 🎥</option>
+            <option value="movie_theater">Theater 🎥</option> {/* ✅ Correct category */}
           </Form.Select>
         </Form.Group>
 

@@ -14,7 +14,7 @@ const CATEGORY_TAGS = {
   park: '["leisure"="park"]',
   hotel: '["tourism"="hotel"]',
   bank: '["amenity"="bank"]',
-  // Add more categories as needed
+  movie_theater: '["amenity"="cinema"]', // ✅ Added Theater (Cinema)
 };
 
 const Results = () => {
@@ -39,7 +39,7 @@ const Results = () => {
       setError("");
 
       try {
-        // 1️⃣ Convert Location Name to Coordinates
+        // Convert Location Name to Coordinates
         const locationRes = await axios.get(
           `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationName)}&key=${OPENCAGE_API_KEY}&limit=1`
         );
@@ -52,14 +52,14 @@ const Results = () => {
 
         const { lat, lng } = locationRes.data.results[0].geometry;
 
-        // 2️⃣ Check if Category Exists in CATEGORY_TAGS
+        // ✅ Check if the Category Exists in CATEGORY_TAGS
         if (!CATEGORY_TAGS[category.toLowerCase()]) {
           setError("Invalid category. Please try another one.");
           setLoading(false);
           return;
         }
 
-        // 3️⃣ Fetch Nearby Places from Overpass API
+        // Fetch Nearby Places from Overpass API
         const overpassQuery = `
           [out:json];
           (
@@ -86,7 +86,7 @@ const Results = () => {
           lng: place.lon || place.center?.lon,
         }));
 
-        // 4️⃣ Fetch Images from Unsplash
+        // Fetch Images from Unsplash
         const imageRes = await axios.get(
           `https://api.unsplash.com/search/photos?query=${category}&per_page=10`,
           {
